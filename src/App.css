@@ -1,0 +1,42 @@
+
+.App {
+    text-align: center;
+    background-color: #eee;
+    height: 100vh;
+}
+
+a {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+.content {
+    margin: 7% auto;
+    width: 600px;
+}
+
+@media (max-width: 400px) {
+    .content {
+        width: 250px;
+    }
+}
+
+.profile-card {
+    background: #000;
+}
+
+.user-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10% 45%;
+}
+
+.show-more-btn {
+    margin-left: 40%;
+}
+
+.error-message {
+    color: red;
+    display: none;
+}
