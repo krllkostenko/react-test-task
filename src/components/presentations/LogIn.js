@@ -39,6 +39,10 @@ const LogIn = () => {
 
     const logInHandler = () => {
         localStorage.setItem('isLoggedIn', true);
+        dispatch('LOGIN')
+        {
+            this.setState(state => reducer(state, action))
+        }
         const userData = JSON.parse(localStorage.getItem('userData'));
         if (userData !== null) {
             if (values.email === userData.email && values.password === userData.password) {
