@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import LogIn from "./pages/Login";
 import Profile from './pages/Profile'
 
+
 const App = () => {
 
     const checkIfLoggedIn = () => {
