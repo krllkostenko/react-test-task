@@ -14,10 +14,11 @@ const ErrorMessage = (props) => {
         const userData = props.error.data;
         if (userData.name.length <= 4) {
             return (<p>Username must be longer than 4</p>);
-        } else if (userData.email.match(/^[\w.+-]+@gmail\.com$/)) {
-            console.log(userData.email)
+        }
+        if (userData.email.match(/^[\w.+-]+@gmail\.com$/)) {
             return (<p>Email must end with 'gmail.com'</p>);
-        } else if (userData.password.length <= 6) {
+        }
+        if (userData.password.length <= 6) {
             return (<p>Password must be longer than 6 </p>);
         }
     };
