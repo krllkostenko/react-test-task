@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Header from '../components/Header';
-import SignIn from '../components/SignIn';
+import Header from './Components/Header';
+import SignIn from './Components/SignIn';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import LogIn from "../components/LogIn";
-import Profile from '../containers/Profile'
+import LogIn from "./Components/LogIn";
+import Profile from './Components/Profile'
 
 const App = () => {
 
