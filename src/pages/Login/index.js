@@ -1,9 +1,10 @@
-
 import React from 'react';
 import {makeStyles, createStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Card, CardContent} from "@material-ui/core/";
+import ErrorPopUp from "../../components/presentations/ErrorPopUp";
+import ErrorMessage from "../../components/presentations/ErrorMessage";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -47,7 +48,11 @@ const Index = () => {
                 location = location.slice(0, location.indexOf('/login'));
                 window.location.href = `${location}/profile`;
             } else {
-                console.log('Invalid Password')
+                const errorMessage = document.querySelector('.error-message');
+                errorMessage.setAttribute('style', 'display:block');
+                setTimeout(() => {
+                    errorMessage.setAttribute('style', 'display:none');
+                }, 3500)
             }
 
         }
@@ -55,6 +60,7 @@ const Index = () => {
     return (
         <Card>
             <CardContent>
+                <ErrorMessage error={{type: 'Login', data: values,}}/>
                 <form className={classes.container} noValidate autoComplete="off">
                     <TextField
                         id="outlined-email-input"

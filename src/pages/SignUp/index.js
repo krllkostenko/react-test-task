@@ -60,7 +60,7 @@ const SignIn = () => {
     return (
         <Card>
             <CardContent>
-                <ErrorMessage userData={values}/>
+                <ErrorMessage error={{type: 'SignUp', data:values,}}/>
                 <form className={classes.container} noValidate autoComplete="off">
                     <TextField
                         id="outlined-name"
