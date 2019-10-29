@@ -3,7 +3,7 @@ import {makeStyles, createStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Card, CardContent} from "@material-ui/core/";
-import ErrorMessage from "../../components/presentations/ErrorMessage";
+import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -59,7 +59,7 @@ const Index = () => {
     return (
         <Card>
             <CardContent>
-                <ErrorMessage error={{type: 'Login', data: values,}}/>
+                <ErrorMessagePopUp error={{type: 'Login', data: values,}}/>
                 <form className={classes.container} noValidate autoComplete="off">
                     <TextField
                         id="outlined-email-input"

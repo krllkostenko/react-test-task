@@ -1,6 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import App from "../App";
+import {Route, Switch} from "react-router-dom";
 import {Login, SignUp, Profile} from "../pages";
 import PrivateRouter from './PrivateRoute';
 import SignIn from "../pages/SignUp";
