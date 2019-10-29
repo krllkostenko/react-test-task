@@ -52,7 +52,7 @@ const Index = () => {
                 errorMessage.setAttribute('style', 'display:block');
                 setTimeout(() => {
                     errorMessage.setAttribute('style', 'display:none');
-                }, 3500)
+                }, 4500)
             }
 
         }
