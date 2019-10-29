@@ -1,7 +1,6 @@
-import signIn from './signIn';
+import signIn from './auth';
 import {combineReducers} from "redux";
 
-const reducers = combineReducers({
+export default combineReducers({
     signIn
 });
-export default reducers;
