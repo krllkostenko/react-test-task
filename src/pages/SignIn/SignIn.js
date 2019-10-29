@@ -1,9 +1,9 @@
-
 import React from 'react';
 import {makeStyles, createStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {Card, CardContent} from "@material-ui/core/";
+import {Card, CardContent} from "@material-ui/core";
+import ErrorPopUp from "./ErrorPopUp";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const LogIn = () => {
+const SignIn = () => {
     const classes = useStyles();
-
     const [values, setValues] = React.useState({
+        name: '',
         email: '',
         password: '',
     });
@@ -40,53 +40,72 @@ const LogIn = () => {
 
     const logInHandler = () => {
         localStorage.setItem('isLoggedIn', true);
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        if (userData !== null) {
-            if (values.email === userData.email && values.password === userData.password) {
-                let location = window.location.href;
-                location = location.slice(0, location.indexOf('/login'));
-                window.location.href = `${location}/profile`;
-            } else {
-                console.log('Invalid Password')
-            }
+        let location = window.location.href;
+        location = location.slice(0, location.indexOf('/signup'));
+        window.location.href = `${location}/profile`;
+    };
 
+    const signInHandler = () => {
+        if (values.email.match(/^[\w.+\-]+@gmail\.com$/) && values.password.length >= 6 && values.name.length >= 4) {
+            localStorage.setItem('userData', JSON.stringify(values));
+            logInHandler();
+        } else {
+            const errorMessage = document.querySelector('.error-message');
+                errorMessage.setAttribute('style','display:block');
+                setTimeout(()=>{
+                    errorMessage.setAttribute('style','display:none');
+                },3500)
         }
     };
     return (
         <Card>
             <CardContent>
+                <div className="error-message">
+                    <p>Email must end with 'gmail.com'</p>
+                    <p>Password must be longer than 6 </p>
+                    <p>Username must be longer than 4</p>
+                </div>
                 <form className={classes.container} noValidate autoComplete="off">
+                    <TextField
+                        id="outlined-name"
+                        label="Nickname"
+                        className={classes.textField}
+                        onChange={handleChange('name')}
+                        margin="normal"
+                        variant="outlined"
+                    />
+
                     <TextField
                         id="outlined-email-input"
                         label="Email"
                         className={classes.textField}
+                        onChange={handleChange('email')}
                         type="email"
                         name="email"
                         autoComplete="email"
                         margin="normal"
                         variant="outlined"
-                        onChange={handleChange('email')}
                     />
                     <TextField
                         id="outlined-password-input"
                         label="Password"
                         className={classes.textField}
+                        onChange={handleChange('password')}
                         type="password"
                         autoComplete="current-password"
                         margin="normal"
                         variant="outlined"
-                        onChange={handleChange('password')}
                     />
                     <Button
                         variant="contained"
                         color="secondary"
-                        onClick={logInHandler}
+                        onClick={signInHandler}
                     >
-                        LogIn
+                        Sign Up
                     </Button>
                 </form>
             </CardContent>
         </Card>
     );
 };
-export default LogIn;
+export default SignIn;
