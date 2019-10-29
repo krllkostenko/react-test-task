@@ -3,7 +3,6 @@ import {makeStyles, createStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Card, CardContent} from "@material-ui/core/";
-import ErrorPopUp from "../../components/presentations/ErrorPopUp";
 import ErrorMessage from "../../components/presentations/ErrorMessage";
 
 const useStyles = makeStyles((theme) =>
