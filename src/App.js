@@ -5,6 +5,7 @@ import SignIn from './pages/SignUp';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import LogIn from "./pages/Login";
 import Profile from './pages/Profile'
+import AppRouter from './routes'
 
 
 const App = () => {
@@ -25,12 +26,7 @@ const App = () => {
             <div className="App">
                 <Header/>
                 <div className="content">
-                    <Switch>
-                        <Route path={'/'} exact component={checkIfLoggedIn()}/>
-                        <Route path={'/profile'} component={Profile}/>
-                        <Route path={'/signup'} component={SignIn}/>
-                        <Route path={'/login'} component={LogIn}/>
-                    </Switch>
+                    <AppRouter/>
                 </div>
             </div>
         </Router>

@@ -46,7 +46,7 @@ const SignIn = () => {
     };
 
     const signInHandler = () => {
-        if (values.email.match(/^[\w.+\-]+@gmail\.com$/) && values.password.length >= 6 && values.name.length >= 4) {
+        if (values.email.match(/^[\w.+-]+@gmail\.com$/) && values.password.length >= 6 && values.name.length >= 4) {
             localStorage.setItem('userData', JSON.stringify(values));
             logInHandler();
         } else {
