@@ -3,7 +3,7 @@ import {makeStyles, createStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Card, CardContent} from "@material-ui/core";
-import ErrorPopUp from "./ErrorPopUp";
+import ErrorMessage from "../../components/presentations/ErrorMessage";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -51,20 +51,16 @@ const SignIn = () => {
             logInHandler();
         } else {
             const errorMessage = document.querySelector('.error-message');
-                errorMessage.setAttribute('style','display:block');
-                setTimeout(()=>{
-                    errorMessage.setAttribute('style','display:none');
-                },3500)
+            errorMessage.setAttribute('style', 'display:block');
+            setTimeout(() => {
+                errorMessage.setAttribute('style', 'display:none');
+            }, 3500)
         }
     };
     return (
         <Card>
             <CardContent>
-                <div className="error-message">
-                    <p>Email must end with 'gmail.com'</p>
-                    <p>Password must be longer than 6 </p>
-                    <p>Username must be longer than 4</p>
-                </div>
+                <ErrorMessage error={{type: 'SignUp', data:values,}}/>
                 <form className={classes.container} noValidate autoComplete="off">
                     <TextField
                         id="outlined-name"
