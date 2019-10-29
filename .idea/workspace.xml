@@ -34,11 +34,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src\pages\SignUp" />
+      <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src\pages\Login" />
+      <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src\pages\Profile" />
       <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src" />
       <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src\components" />
-      <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src\state-management" />
-      <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src\containers" />
-      <recent name="C:\Users\Home\Desktop\Useful\react-test-task\react-test-task\src\Components\Header" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -85,7 +85,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

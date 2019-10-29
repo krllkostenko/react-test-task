@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const LogIn = () => {
+const Index = () => {
     const classes = useStyles();
 
     const [values, setValues] = React.useState({
@@ -88,4 +88,4 @@ const LogIn = () => {
         </Card>
     );
 };
-export default LogIn;
+export default Index;

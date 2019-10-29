@@ -39,4 +39,5 @@ a {
 .error-message {
     color: red;
     display: none;
+    font-weight: bold;
 }
