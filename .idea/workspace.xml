@@ -15,6 +15,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -29,10 +32,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src\containers" />
+      <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src" />
       <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src\components" />
+      <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src\state-management" />
+      <recent name="C:\Users\Home\Desktop\Useful\TestTasks\react-test-task\react-test-task\src\containers" />
       <recent name="C:\Users\Home\Desktop\Useful\react-test-task\react-test-task\src\Components\Header" />
-      <recent name="C:\Users\Home\Desktop\Useful\react-test-task\react-test-task\src\Components" />
     </key>
   </component>
   <component name="RunDashboard">
