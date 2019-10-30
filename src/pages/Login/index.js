@@ -1,48 +1,47 @@
-import React from 'react';
-import {makeStyles, createStyles} from '@material-ui/core/styles';
+import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Card, CardContent} from "@material-ui/core/";
-import ErrorMessage from "../../components/presentations/ErrorMessage";
+import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
+import {withStyles} from "@material-ui/core";
 
-const useStyles = makeStyles((theme) =>
-    createStyles({
-        container: {
-            display: 'flex',
-            flexWrap: 'wrap',
-            flexDirection: 'column',
-        },
-        textField: {
-            marginLeft: theme.spacing(1),
-            marginRight: theme.spacing(1),
-        },
-        dense: {
-            marginTop: theme.spacing(2),
-        },
-        menu: {
-            width: 200,
-        },
-    }),
-);
+const useStyles = (theme) => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: 'column',
+    },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+    },
+    dense: {
+        marginTop: theme.spacing(2),
+    },
+    menu: {
+        width: 200,
+    },
+});
 
 
-const Index = () => {
-    const classes = useStyles();
+class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: '',
+        }
+    }
 
-    const [values, setValues] = React.useState({
-        email: '',
-        password: '',
-    });
-
-    const handleChange = (name) => (event) => {
-        setValues({...values, [name]: event.target.value});
+    handleChange = (name) => (event) => {
+        this.setState({...this.state, [name]: event.target.value});
     };
 
-    const logInHandler = () => {
+    logInHandler = () => {
         localStorage.setItem('isLoggedIn', true);
         const userData = JSON.parse(localStorage.getItem('userData'));
         if (userData !== null) {
-            if (values.email === userData.email && values.password === userData.password) {
+            if (this.state.email === userData.email && this.state.password === userData.password) {
                 let location = window.location.href;
                 location = location.slice(0, location.indexOf('/login'));
                 window.location.href = `${location}/profile`;
@@ -56,42 +55,46 @@ const Index = () => {
 
         }
     };
-    return (
-        <Card>
-            <CardContent>
-                <ErrorMessage error={{type: 'Login', data: values,}}/>
-                <form className={classes.container} noValidate autoComplete="off">
-                    <TextField
-                        id="outlined-email-input"
-                        label="Email"
-                        className={classes.textField}
-                        type="email"
-                        name="email"
-                        autoComplete="email"
-                        margin="normal"
-                        variant="outlined"
-                        onChange={handleChange('email')}
-                    />
-                    <TextField
-                        id="outlined-password-input"
-                        label="Password"
-                        className={classes.textField}
-                        type="password"
-                        autoComplete="current-password"
-                        margin="normal"
-                        variant="outlined"
-                        onChange={handleChange('password')}
-                    />
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={logInHandler}
-                    >
-                        LogIn
-                    </Button>
-                </form>
-            </CardContent>
-        </Card>
-    );
+
+    render() {
+        const {classes} = this.props;
+        return (
+            <Card>
+                <CardContent>
+                    <ErrorMessagePopUp error={{type: 'Login', data: this.state,}}/>
+                    <form className={classes.container} noValidate autoComplete="off">
+                        <TextField
+                            id="outlined-email-input"
+                            label="Email"
+                            className={classes.textField}
+                            type="email"
+                            name="email"
+                            autoComplete="email"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('email')}
+                        />
+                        <TextField
+                            id="outlined-password-input"
+                            label="Password"
+                            className={classes.textField}
+                            type="password"
+                            autoComplete="current-password"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={this.handleChange('password')}
+                        />
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={this.logInHandler}
+                        >
+                            LogIn
+                        </Button>
+                    </form>
+                </CardContent>
+            </Card>
+        );
+    }
 };
-export default Index;
+export default withStyles(useStyles)(Login);

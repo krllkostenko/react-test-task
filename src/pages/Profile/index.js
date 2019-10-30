@@ -3,7 +3,7 @@ import {Avatar, Card, CardContent, Typography} from '@material-ui/core';
 import PopUp from "../../components/presentations/PopUp";
 
 
-class Index extends Component {
+class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +25,7 @@ class Index extends Component {
                         <h3>Nickname: {this.state.userData.name}</h3>
                         <h3>Email: {this.state.userData.email}</h3>
                     </Typography>
-                    <PopUp name={this.state.userData.name} email={this.state.email}/>
+                    <PopUp name={this.state.userData.name} email={this.state.userData.email}/>
                 </CardContent>
             </Card>
         );
@@ -36,4 +36,4 @@ class Index extends Component {
     }
 }
 
-export default Index;
+export default Profile;
