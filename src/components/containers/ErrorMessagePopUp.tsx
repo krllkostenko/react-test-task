@@ -1,7 +1,7 @@
 import React from 'react';
 import ErrorMessage from "../presentations/ErrorMessage";
 
-const ErrorMessagePopUp = (props) => {
+const ErrorMessagePopUp = (props:any) => {
     const showErrorMessage = () => {
         if (props.error.type === 'SignUp') {
             return handleSignUpErrors();
@@ -26,7 +26,7 @@ const ErrorMessagePopUp = (props) => {
     };
 
     const handleLoginErrors = () => {
-        const userData = JSON.parse(localStorage.getItem('userData'));
+        const userData = JSON.parse(localStorage.getItem('userData')|| '{}');
         if (props.error.data.email !== userData.email) {
             return (<p>Invalid Email!</p>);
         }

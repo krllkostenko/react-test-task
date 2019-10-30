@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {Card, CardContent} from "@material-ui/core";
+import {Card, CardContent, Theme} from "@material-ui/core/";
 import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
-import {withStyles} from '@material-ui/core/styles';
+import {withStyles} from "@material-ui/core";
 
-const useStyles = theme => ({
+const useStyles = (theme: Theme): object => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -24,37 +24,34 @@ const useStyles = theme => ({
 });
 
 
-class SignIn extends Component {
-    constructor(props) {
+class Login extends Component<{ classes: any }, { email: string, password: string }> {
+    constructor(props: any) {
         super(props);
         this.state = {
-            name: '',
             email: '',
             password: '',
-        };
-
+        }
     }
 
-    handleChange = (name) => (event) => {
-        this.setState({...this.state, [name]: event.target.value});
-    };
-    logInHandler = () => {
-        localStorage.setItem('isLoggedIn', true);
-        let location = window.location.href;
-        location = location.slice(0, location.indexOf('/signup'));
-        window.location.href = `${location}/profile`;
+    handleChange = (name: string) => (event: React.FormEvent<HTMLInputElement>) => {
+        this.setState({...this.state, [name]: event.currentTarget.value});
     };
 
-    signInHandler = () => {
-        if (this.state.email.match(/^[\w.+-]+@gmail\.com$/) && this.state.password.length >= 6 && this.state.name.length >= 4) {
-            localStorage.setItem('userData', JSON.stringify(this.state));
-            this.logInHandler();
-        } else {
-            const errorMessage = document.querySelector('.error-message');
-            errorMessage.setAttribute('style', 'display:block');
-            setTimeout(() => {
-                errorMessage.setAttribute('style', 'display:none');
-            }, 3500)
+    logInHandler = () => {
+        localStorage.setItem('isLoggedIn', 'true');
+        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        if (userData !== null) {
+            if (this.state.email === userData.email && this.state.password === userData.password) {
+                let location = window.location.href;
+                location = location.slice(0, location.indexOf('/login'));
+                window.location.href = `${location}/profile`;
+            } else {
+                const errorMessage = document.querySelector('.error-message') as HTMLInputElement;
+                errorMessage.setAttribute('style', 'display:block');
+                setTimeout(() => {
+                    errorMessage.setAttribute('style', 'display:none');
+                }, 4500)
+            }
         }
     };
 
@@ -63,49 +60,40 @@ class SignIn extends Component {
         return (
             <Card>
                 <CardContent>
-                    <ErrorMessagePopUp error={{type: 'SignUp', data: this.state,}}/>
+                    <ErrorMessagePopUp error={{type: 'Login', data: this.state,}}/>
                     <form className={classes.container} noValidate autoComplete="off">
-                        <TextField
-                            id="outlined-name"
-                            label="Nickname"
-                            className={classes.textField}
-                            onChange={this.handleChange('name')}
-                            margin="normal"
-                            variant="outlined"
-                        />
-
                         <TextField
                             id="outlined-email-input"
                             label="Email"
                             className={classes.textField}
-                            onChange={this.handleChange('email')}
                             type="email"
                             name="email"
                             autoComplete="email"
                             margin="normal"
                             variant="outlined"
+                            onChange={this.handleChange('email')}
                         />
                         <TextField
                             id="outlined-password-input"
                             label="Password"
                             className={classes.textField}
-                            onChange={this.handleChange('password')}
                             type="password"
                             autoComplete="current-password"
                             margin="normal"
                             variant="outlined"
+                            onChange={this.handleChange('password')}
                         />
                         <Button
                             variant="contained"
                             color="secondary"
-                            onClick={this.signInHandler}
+                            onClick={this.logInHandler}
                         >
-                            Sign Up
+                            LogIn
                         </Button>
                     </form>
                 </CardContent>
             </Card>
         );
     }
-}
-export default withStyles(useStyles)(SignIn);
+};
+export default withStyles(useStyles)(Login);

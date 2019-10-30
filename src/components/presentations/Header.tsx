@@ -22,7 +22,7 @@ const Header = () => {
     const classes = useStyles();
 
     const isLoggedIn = () => {
-        const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+        const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn') || '{}');
         if (isLoggedIn === false) {
             return (
                 <div>
@@ -42,8 +42,8 @@ const Header = () => {
             return (
                 <Button
                     color="inherit"
-                    onClick={()=>{
-                        localStorage.setItem('isLoggedIn', false);
+                    onClick={() => {
+                        localStorage.setItem('isLoggedIn', 'false');
                         let location = window.location.href;
                         location = location.slice(0, location.indexOf('/profile'));
                         window.location.href = `${location}/login`;
@@ -62,7 +62,7 @@ const Header = () => {
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
                     <Link to={'/'}>
-                       Test Task
+                        Test Task
                     </Link>
                 </Typography>
                 {isLoggedIn()}

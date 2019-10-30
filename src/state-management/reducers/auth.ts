@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from '../types';
+import {LOGIN, LOGOUT} from '../types';
 
 const initialState = {
     isLoggedIn: false,
@@ -15,7 +15,7 @@ const handlers = {
     [LOGOUT]: handleLogout,
 };
 
-export default (state = initialState, action) => {
-    const handler = handlers[action.type];
+export default (state = initialState, action: any) => {
+    const handler: Function = handlers[action.type];
     return handler ? handler() : state;
 };

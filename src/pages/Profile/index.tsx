@@ -3,11 +3,11 @@ import {Avatar, Card, CardContent, Typography} from '@material-ui/core';
 import PopUp from "../../components/presentations/PopUp";
 
 
-class Profile extends Component {
-    constructor(props) {
+class Profile extends Component<{}, { userData: any }> {
+    constructor(props: any) {
         super(props);
         this.state = {
-            userData: '',
+            userData: {},
         };
     }
 
@@ -32,7 +32,7 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        this.setState({userData: JSON.parse(localStorage.getItem('userData'))});
+        this.setState({userData: JSON.parse(localStorage.getItem('userData') || '{}')});
     }
 }
 
