@@ -13,7 +13,6 @@ const ErrorMessagePopUp = (props:any) => {
     };
     const handleSignUpErrors = () => {
         const userData = props.error.data;
-        console.log(userData);
         if (userData.name.length < 4) {
             return (<p>Username must be longer than 4</p>);
         }

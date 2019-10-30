@@ -33,7 +33,7 @@ class Login extends Component<{ classes: any }, { email: string, password: strin
         }
     }
 
-    handleChange = (name: string) => (event: React.FormEvent<HTMLInputElement>) => {
+    handleChange = (name: string):void => (event: React.FormEvent<HTMLInputElement>):string => {
         this.setState({...this.state, [name]: event.currentTarget.value});
     };
 

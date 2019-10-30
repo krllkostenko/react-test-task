@@ -23,7 +23,7 @@ PrivateRoute.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state:any) => ({
     isLoggedIn: state.auth.isLoggedIn
 });
 
