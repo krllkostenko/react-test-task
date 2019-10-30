@@ -13,13 +13,14 @@ const ErrorMessagePopUp = (props) => {
     };
     const handleSignUpErrors = () => {
         const userData = props.error.data;
-        if (userData.name.length <= 4) {
+        console.log(userData);
+        if (userData.name.length < 4) {
             return (<p>Username must be longer than 4</p>);
         }
-        if (userData.email.match(/^[\w.+-]+@gmail\.com$/)) {
+        if (!userData.email.match(/^[\w.+-]+@gmail\.com$/)) {
             return (<p>Email must end with 'gmail.com'</p>);
         }
-        if (userData.password.length <= 6) {
+        if (userData.password.length < 6) {
             return (<p>Password must be longer than 6 </p>);
         }
     };
