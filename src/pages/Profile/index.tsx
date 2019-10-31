@@ -18,7 +18,7 @@ class Profile extends Component<{}, { userData: any }> {
                     <Typography variant="h2" component="h2">
                         Profile
                     </Typography>
-                    <Typography variant="body2" component="p">
+                    <Typography variant="body2" component="div">
                         <div className={"user-data"}>
                             <Avatar>{this.state.userData.name}</Avatar>
                         </div>

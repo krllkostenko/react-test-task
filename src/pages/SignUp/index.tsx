@@ -35,8 +35,9 @@ class SignIn extends Component<{ classes: any }, { name: string, email: string, 
 
     }
 
-    handleChange = (name: string) => (event: React.FormEvent<HTMLInputElement>) => {
-        this.setState({...this.state, [name]: event.currentTarget.value});
+    private handleChange = (name: string) => (event:{}) => {
+        const e = event as React.ChangeEvent<HTMLInputElement>;
+        this.setState({...this.state, [name]: e.currentTarget.value});
     };
     logInHandler = () => {
         localStorage.setItem('isLoggedIn', 'true');
@@ -57,7 +58,6 @@ class SignIn extends Component<{ classes: any }, { name: string, email: string, 
             }, 3500)
         }
     };
-
     render() {
         const {classes} = this.props;
         return (
@@ -85,6 +85,7 @@ class SignIn extends Component<{ classes: any }, { name: string, email: string, 
                             margin="normal"
                             variant="outlined"
                         />
+
                         <TextField
                             id="outlined-password-input"
                             label="Password"
@@ -95,6 +96,7 @@ class SignIn extends Component<{ classes: any }, { name: string, email: string, 
                             margin="normal"
                             variant="outlined"
                         />
+
                         <Button
                             variant="contained"
                             color="secondary"

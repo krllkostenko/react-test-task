@@ -20,7 +20,7 @@ export default () => (
     <Switch>
         <Route exact path="/login" component={Login}/>
         <Route path="/" component={checkIfLoggedIn()}/>
-        <PrivateRouter exact path="/profile" component={Profile} redirect="/"/>
+        <PrivateRouter path="/profile" component={Profile} redirect="/login"/>
         <Route exact path="/signup" component={SignUp}/>
     </Switch>
 );

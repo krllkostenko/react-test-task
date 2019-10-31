@@ -10,12 +10,12 @@ const handleLogin = () => ({
 
 const handleLogout = () => initialState;
 
-const handlers = {
+const handlers:any = {
     [LOGIN]: handleLogin,
     [LOGOUT]: handleLogout,
 };
 
 export default (state = initialState, action: any) => {
-    const handler: Function = handlers[action.type];
+    const handler = handlers[action.type];
     return handler ? handler() : state;
 };

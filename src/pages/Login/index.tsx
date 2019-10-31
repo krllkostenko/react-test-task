@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import {withStyles} from "@material-ui/core";
 import {Card, CardContent, Theme} from "@material-ui/core/";
 import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
-import {withStyles} from "@material-ui/core";
 
 const useStyles = (theme: Theme): object => ({
     container: {
@@ -33,8 +33,9 @@ class Login extends Component<{ classes: any }, { email: string, password: strin
         }
     }
 
-    handleChange = (name: string):void => (event: React.FormEvent<HTMLInputElement>):string => {
-        this.setState({...this.state, [name]: event.currentTarget.value});
+    private handleChange = (name: string) => (event:{}) => {
+        const e = event as React.ChangeEvent<HTMLInputElement>;
+        this.setState({...this.state, [name]: e.currentTarget.value});
     };
 
     logInHandler = () => {
