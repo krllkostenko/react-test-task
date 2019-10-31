@@ -1,8 +1,9 @@
 import React from 'react';
-import {Route, Switch} from "react-router-dom";
-import {Login, SignUp, Profile} from "../pages";
-import PrivateRouter from './PrivateRoute';
+import {Route, Switch, BrowserRouter as Router} from "react-router-dom";
 import SignIn from "../pages/SignUp";
+import PrivateRouter from './PrivateRoute';
+import {Login, SignUp, Profile} from "../pages";
+import App from '../App';
 
 const checkIfLoggedIn = () => {
     const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn') || '{}');
@@ -17,10 +18,14 @@ const checkIfLoggedIn = () => {
 };
 
 export default () => (
-    <Switch>
-        <Route exact path="/login" component={Login}/>
-        <Route path="/" component={checkIfLoggedIn()}/>
-        <PrivateRouter path="/profile" component={Profile} redirect="/login"/>
-        <Route exact path="/signup" component={SignUp}/>
-    </Switch>
+    <Router>
+        <App>
+            <Switch>
+                <Route exact path="/login" component={Login}/>
+                <Route path="/" component={checkIfLoggedIn()}/>
+                <PrivateRouter path="/profile" component={Profile} redirect="/login"/>
+                <Route exact path="/signup" component={SignUp}/>
+            </Switch>
+        </App>
+    </Router>
 );
