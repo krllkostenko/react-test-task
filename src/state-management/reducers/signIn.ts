@@ -7,11 +7,11 @@ const handleLogin = () => ({
 const handleLogout = () => initialState;
 
 const handlers = {
-    ['LOGIN']:handleLogin,
-    ['LOGOUT']:handleLogout,
+    ['LOGIN']: handleLogin,
+    ['LOGOUT']: handleLogout,
 };
 
-const signInReducer = (state, action) => {
+const signInReducer = (state: any, action: any) => {
     switch (action.type) {
         case 'LOGIN':
             return state = {

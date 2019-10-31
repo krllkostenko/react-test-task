@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {Card, CardContent} from "@material-ui/core/";
-import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
 import {withStyles} from "@material-ui/core";
+import {Card, CardContent, Theme} from "@material-ui/core/";
+import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
 
-const useStyles = (theme) => ({
+const useStyles = (theme: Theme): object => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -24,8 +24,8 @@ const useStyles = (theme) => ({
 });
 
 
-class Login extends Component {
-    constructor(props) {
+class Login extends Component<{ classes: any }, { email: string, password: string }> {
+    constructor(props: any) {
         super(props);
         this.state = {
             email: '',
@@ -33,26 +33,26 @@ class Login extends Component {
         }
     }
 
-    handleChange = (name) => (event) => {
-        this.setState({...this.state, [name]: event.target.value});
+    private handleChange = (name: string) => (event:{}) => {
+        const e = event as React.ChangeEvent<HTMLInputElement>;
+        this.setState({...this.state, [name]: e.currentTarget.value});
     };
 
     logInHandler = () => {
-        localStorage.setItem('isLoggedIn', true);
-        const userData = JSON.parse(localStorage.getItem('userData'));
+        localStorage.setItem('isLoggedIn', 'true');
+        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
         if (userData !== null) {
             if (this.state.email === userData.email && this.state.password === userData.password) {
                 let location = window.location.href;
                 location = location.slice(0, location.indexOf('/login'));
                 window.location.href = `${location}/profile`;
             } else {
-                const errorMessage = document.querySelector('.error-message');
+                const errorMessage = document.querySelector('.error-message') as HTMLInputElement;
                 errorMessage.setAttribute('style', 'display:block');
                 setTimeout(() => {
                     errorMessage.setAttribute('style', 'display:none');
                 }, 4500)
             }
-
         }
     };
 

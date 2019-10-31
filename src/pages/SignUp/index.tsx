@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {Card, CardContent} from "@material-ui/core";
+import {Card, CardContent, Theme} from "@material-ui/core";
 import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
 import {withStyles} from '@material-ui/core/styles';
 
-const useStyles = theme => ({
+const useStyles = (theme: Theme): object => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -24,8 +24,8 @@ const useStyles = theme => ({
 });
 
 
-class SignIn extends Component {
-    constructor(props) {
+class SignIn extends Component<{ classes: any }, { name: string, email: string, password: string }> {
+    constructor(props: any) {
         super(props);
         this.state = {
             name: '',
@@ -35,11 +35,12 @@ class SignIn extends Component {
 
     }
 
-    handleChange = (name) => (event) => {
-        this.setState({...this.state, [name]: event.target.value});
+    private handleChange = (name: string) => (event:{}) => {
+        const e = event as React.ChangeEvent<HTMLInputElement>;
+        this.setState({...this.state, [name]: e.currentTarget.value});
     };
     logInHandler = () => {
-        localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('isLoggedIn', 'true');
         let location = window.location.href;
         location = location.slice(0, location.indexOf('/signup'));
         window.location.href = `${location}/profile`;
@@ -50,14 +51,13 @@ class SignIn extends Component {
             localStorage.setItem('userData', JSON.stringify(this.state));
             this.logInHandler();
         } else {
-            const errorMessage = document.querySelector('.error-message');
+            const errorMessage = document.querySelector('.error-message') as HTMLInputElement;
             errorMessage.setAttribute('style', 'display:block');
             setTimeout(() => {
                 errorMessage.setAttribute('style', 'display:none');
             }, 3500)
         }
     };
-
     render() {
         const {classes} = this.props;
         return (
@@ -85,6 +85,7 @@ class SignIn extends Component {
                             margin="normal"
                             variant="outlined"
                         />
+
                         <TextField
                             id="outlined-password-input"
                             label="Password"
@@ -95,6 +96,7 @@ class SignIn extends Component {
                             margin="normal"
                             variant="outlined"
                         />
+
                         <Button
                             variant="contained"
                             color="secondary"
@@ -108,4 +110,5 @@ class SignIn extends Component {
         );
     }
 }
+
 export default withStyles(useStyles)(SignIn);

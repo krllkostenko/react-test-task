@@ -5,9 +5,9 @@ import PrivateRouter from './PrivateRoute';
 import SignIn from "../pages/SignUp";
 
 const checkIfLoggedIn = () => {
-    const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+    const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn') || '{}');
     if (isLoggedIn === null) {
-        localStorage.setItem('isLoggedIn', false);
+        localStorage.setItem('isLoggedIn', 'false');
     }
     if (isLoggedIn === true) {
         return Profile;
@@ -20,7 +20,7 @@ export default () => (
     <Switch>
         <Route exact path="/login" component={Login}/>
         <Route path="/" component={checkIfLoggedIn()}/>
-        <PrivateRouter exact path="/profile" component={Profile} redirect="/"/>
+        <PrivateRouter path="/profile" component={Profile} redirect="/login"/>
         <Route exact path="/signup" component={SignUp}/>
     </Switch>
 );
