@@ -1,57 +1,60 @@
-import React, {Component} from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import React, {Component} from "react";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import {withStyles} from "@material-ui/core";
 import {Card, CardContent, Theme} from "@material-ui/core/";
 import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
+import {login} from "../../state-management/actions";
+import store from '../../state-management';
+import {connect} from 'react-redux';
+
 
 const useStyles = (theme: Theme): object => ({
     container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        flexDirection: 'column',
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "column"
     },
     textField: {
         marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
+        marginRight: theme.spacing(1)
     },
     dense: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(2)
     },
     menu: {
-        width: 200,
-    },
+        width: 200
+    }
 });
 
-
-class Login extends Component<{ classes: any }, { email: string, password: string }> {
+class Login extends Component<{ classes: any }, { email: string; password: string }> {
     constructor(props: any) {
         super(props);
         this.state = {
-            email: '',
-            password: '',
-        }
+            email: "",
+            password: ""
+        };
     }
 
-    private handleChange = (name: string) => (event:{}) => {
+    private handleChange = (name: string) => (event: {}) => {
         const e = event as React.ChangeEvent<HTMLInputElement>;
         this.setState({...this.state, [name]: e.currentTarget.value});
     };
 
     logInHandler = () => {
-        localStorage.setItem('isLoggedIn', 'true');
-        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        const userData = JSON.parse(localStorage.getItem("userData") || "{}");
         if (userData !== null) {
             if (this.state.email === userData.email && this.state.password === userData.password) {
                 let location = window.location.href;
-                location = location.slice(0, location.indexOf('/login'));
+                location = location.slice(0, location.indexOf("/login"));
                 window.location.href = `${location}/profile`;
+                store.dispatch(login());
             } else {
-                const errorMessage = document.querySelector('.error-message') as HTMLInputElement;
-                errorMessage.setAttribute('style', 'display:block');
+                const errorMessage = document.querySelector(".error-message") as HTMLInputElement;
+                errorMessage.setAttribute("style", "display:block");
                 setTimeout(() => {
-                    errorMessage.setAttribute('style', 'display:none');
-                }, 4500)
+                    errorMessage.setAttribute("style", "display:none");
+                }, 4500);
             }
         }
     };
@@ -61,7 +64,7 @@ class Login extends Component<{ classes: any }, { email: string, password: strin
         return (
             <Card>
                 <CardContent>
-                    <ErrorMessagePopUp error={{type: 'Login', data: this.state,}}/>
+                    <ErrorMessagePopUp error={{type: "Login", data: this.state}}/>
                     <form className={classes.container} noValidate autoComplete="off">
                         <TextField
                             id="outlined-email-input"
@@ -72,7 +75,7 @@ class Login extends Component<{ classes: any }, { email: string, password: strin
                             autoComplete="email"
                             margin="normal"
                             variant="outlined"
-                            onChange={this.handleChange('email')}
+                            onChange={this.handleChange("email")}
                         />
                         <TextField
                             id="outlined-password-input"
@@ -82,7 +85,7 @@ class Login extends Component<{ classes: any }, { email: string, password: strin
                             autoComplete="current-password"
                             margin="normal"
                             variant="outlined"
-                            onChange={this.handleChange('password')}
+                            onChange={this.handleChange("password")}
                         />
                         <Button
                             variant="contained"
@@ -96,5 +99,16 @@ class Login extends Component<{ classes: any }, { email: string, password: strin
             </Card>
         );
     }
-};
-export default withStyles(useStyles)(Login);
+}
+
+interface state {
+    auth: any;
+}
+
+const mapStateToProps = (state: state) => {
+    return {
+        isLoggedIn: state.auth.isLoggedIn,
+    }
+}
+
+export default withStyles(useStyles)(connect(mapStateToProps)(Login));

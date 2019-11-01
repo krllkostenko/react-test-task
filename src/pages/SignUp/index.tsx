@@ -4,6 +4,9 @@ import Button from '@material-ui/core/Button';
 import {Card, CardContent, Theme} from "@material-ui/core";
 import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
 import {withStyles} from '@material-ui/core/styles';
+import {login} from "../../state-management/actions";
+import store from '../../state-management';
+import {connect} from 'react-redux';
 
 const useStyles = (theme: Theme): object => ({
     container: {
@@ -35,15 +38,17 @@ class SignIn extends Component<{ classes: any }, { name: string, email: string, 
 
     }
 
-    private handleChange = (name: string) => (event:{}) => {
+    private handleChange = (name: string) => (event: {}) => {
         const e = event as React.ChangeEvent<HTMLInputElement>;
         this.setState({...this.state, [name]: e.currentTarget.value});
     };
+
     logInHandler = () => {
-        localStorage.setItem('isLoggedIn', 'true');
         let location = window.location.href;
         location = location.slice(0, location.indexOf('/signup'));
         window.location.href = `${location}/profile`;
+        store.dispatch(login());
+        console.log(store.getState().auth.isLoggedIn)
     };
 
     signInHandler = () => {
@@ -58,6 +63,7 @@ class SignIn extends Component<{ classes: any }, { name: string, email: string, 
             }, 3500)
         }
     };
+
     render() {
         const {classes} = this.props;
         return (
@@ -111,4 +117,14 @@ class SignIn extends Component<{ classes: any }, { name: string, email: string, 
     }
 }
 
-export default withStyles(useStyles)(SignIn);
+interface state {
+    auth: any;
+}
+
+const mapStateToProps = (state: state) => {
+    return {
+        isLoggedIn: state.auth.isLoggedIn,
+    }
+}
+
+export default withStyles(useStyles)(connect(mapStateToProps)(SignIn));

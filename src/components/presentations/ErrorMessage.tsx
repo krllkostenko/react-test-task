@@ -1,6 +1,10 @@
 import React from "react";
 
-const ErrorMessage = (props:any) => {
+interface errorMessageProps {
+    errorMessage: Function
+}
+
+const ErrorMessage = (props: errorMessageProps) => {
 
     return (
         <div className={'error-message'}>

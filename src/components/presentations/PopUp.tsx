@@ -7,7 +7,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {useTheme} from '@material-ui/core/styles';
 
-const PopUp = (props:any) => {
+interface popUpProps {
+    name: string,
+    email: string,
+}
+
+const PopUp = (props: popUpProps) => {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));

@@ -1,6 +1,6 @@
 import React from 'react';
+import {Header} from './components';
 import './App.css';
-import Header from './components/presentations/Header';
 
 
 const App = (props) => {
