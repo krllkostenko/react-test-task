@@ -3,10 +3,10 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {withStyles} from "@material-ui/core";
 import {Card, CardContent, Theme} from "@material-ui/core/";
+import {connect} from 'react-redux';
+
 import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
 import {login} from "../../state-management/actions";
-import store from '../../state-management';
-import {connect} from 'react-redux';
 
 
 const useStyles = (theme: Theme): object => ({
@@ -45,10 +45,8 @@ class Login extends Component<{ classes: any }, { email: string; password: strin
         const userData = JSON.parse(localStorage.getItem("userData") || "{}");
         if (userData !== null) {
             if (this.state.email === userData.email && this.state.password === userData.password) {
-                let location = window.location.href;
-                location = location.slice(0, location.indexOf("/login"));
-                window.location.href = `${location}/profile`;
-                store.dispatch(login());
+               this.props.history.push('/');
+                this.props.dispatch(login());
             } else {
                 const errorMessage = document.querySelector(".error-message") as HTMLInputElement;
                 errorMessage.setAttribute("style", "display:block");
@@ -109,6 +107,6 @@ const mapStateToProps = (state: state) => {
     return {
         isLoggedIn: state.auth.isLoggedIn,
     }
-}
+};
 
 export default withStyles(useStyles)(connect(mapStateToProps)(Login));

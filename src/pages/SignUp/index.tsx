@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Card, CardContent, Theme} from "@material-ui/core";
-import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
 import {withStyles} from '@material-ui/core/styles';
-import {login} from "../../state-management/actions";
-import store from '../../state-management';
 import {connect} from 'react-redux';
+
+import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
+import {login} from "../../state-management/actions";
 
 const useStyles = (theme: Theme): object => ({
     container: {
@@ -44,11 +44,8 @@ class SignIn extends Component<{ classes: any }, { name: string, email: string, 
     };
 
     logInHandler = () => {
-        let location = window.location.href;
-        location = location.slice(0, location.indexOf('/signup'));
-        window.location.href = `${location}/profile`;
-        store.dispatch(login());
-        console.log(store.getState().auth.isLoggedIn)
+        this.props.dispatch(login());
+        this.props.history.push('/');
     };
 
     signInHandler = () => {
@@ -125,6 +122,6 @@ const mapStateToProps = (state: state) => {
     return {
         isLoggedIn: state.auth.isLoggedIn,
     }
-}
+};
 
 export default withStyles(useStyles)(connect(mapStateToProps)(SignIn));
