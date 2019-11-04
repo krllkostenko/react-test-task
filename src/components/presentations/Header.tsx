@@ -1,40 +1,37 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import {AppBar, Button, createStyles, IconButton, makeStyles, Toolbar, Typography} from "@material-ui/core";
-import {Link} from 'react-router-dom';
+import PropTypes from "prop-types";
+import {connect} from 'react-redux';
 
+import {logout} from "../../state-management/actions";
+import store from '../../state-management';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(theme =>
     createStyles({
         root: {
-            flexGrow: 1,
+            flexGrow: 1
         },
         menuButton: {
-            marginRight: theme.spacing(2),
+            marginRight: theme.spacing(2)
         },
         title: {
-            flexGrow: 1,
-        },
-
-    }),
+            flexGrow: 1
+        }
+    })
 );
 
-const Header = () => {
+const Header = (props) => {
     const classes = useStyles();
-
     const isLoggedIn = () => {
-        const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn') || '{}');
-        if (isLoggedIn === false) {
+        if (!store.getState().auth.isLoggedIn) {
             return (
                 <div>
-                    <Link to={'/signup'}>
-                        <Button color="inherit">
-                            Sign Up
-                        </Button>
+                    <Link to={"/signup"}>
+                        <Button color="inherit">Sign Up</Button>
                     </Link>
-                    <Link to={'/login'}>
-                        <Button color="inherit">
-                            Login
-                        </Button>
+                    <Link to={"/login"}>
+                        <Button color="inherit">Login</Button>
                     </Link>
                 </div>
             );
@@ -43,9 +40,9 @@ const Header = () => {
                 <Button
                     color="inherit"
                     onClick={() => {
-                        localStorage.setItem('isLoggedIn', 'false');
+                        props.dispatch(logout());
                         let location = window.location.href;
-                        location = location.slice(0, location.indexOf('/profile'));
+                        location = location.slice(0, location.indexOf("/profile"));
                         window.location.href = `${location}/login`;
                     }}
                 >
@@ -58,16 +55,28 @@ const Header = () => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                </IconButton>
+                <IconButton
+                    edge="start"
+                    className={classes.menuButton}
+                    color="inherit"
+                    aria-label="menu"
+                ></IconButton>
                 <Typography variant="h6" className={classes.title}>
-                    <Link to={'/'}>
-                        Test Task
-                    </Link>
+                    <Link to={"/"}>Test Task</Link>
                 </Typography>
                 {isLoggedIn()}
             </Toolbar>
-        </AppBar>);
+        </AppBar>
+    );
 };
 
-export default Header;
+Header.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = (state: properties) => ({
+    isLoggedIn: state.auth.isLoggedIn,
+});
+
+
+export default connect(mapStateToProps)(Header);

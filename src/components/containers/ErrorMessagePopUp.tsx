@@ -1,18 +1,18 @@
-import React from 'react';
-import ErrorMessage from "../presentations/ErrorMessage";
+import React, {Component} from 'react';
+import {ErrorMessage} from "../../components";
 
-const ErrorMessagePopUp = (props:any) => {
-    const showErrorMessage = () => {
-        if (props.error.type === 'SignUp') {
-            return handleSignUpErrors();
+class ErrorMessagePopUp extends Component<{ errorMessage: Function }> {
+    showErrorMessage = () => {
+        if (this.props.error.type === 'SignUp') {
+            return this.handleSignUpErrors();
         }
-        if (props.error.type === 'Login') {
-            return handleLoginErrors();
+        if (this.props.error.type === 'Login') {
+            return this.handleLoginErrors();
         }
 
     };
-    const handleSignUpErrors = () => {
-        const userData = props.error.data;
+    handleSignUpErrors = () => {
+        const userData = this.props.error.data;
         if (userData.name.length < 4) {
             return (<p>Username must be longer than 4</p>);
         }
@@ -24,17 +24,20 @@ const ErrorMessagePopUp = (props:any) => {
         }
     };
 
-    const handleLoginErrors = () => {
-        const userData = JSON.parse(localStorage.getItem('userData')|| '{}');
-        if (props.error.data.email !== userData.email) {
+    handleLoginErrors = () => {
+        const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        if (this.props.error.data.email !== userData.email) {
             return (<p>Invalid Email!</p>);
         }
-        if (props.error.data.password !== userData.password) {
+        if (this.props.error.data.password !== userData.password) {
             return <p>Invalid Password!</p>
         }
     };
-    return (
-        <ErrorMessage errorMessage={showErrorMessage}/>
-    );
+
+    render() {
+        return (
+            <ErrorMessage errorMessage={this.showErrorMessage}/>
+        );
+    }
 };
 export default ErrorMessagePopUp;

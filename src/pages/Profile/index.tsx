@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Avatar, Card, CardContent, Typography} from '@material-ui/core';
-import PopUp from "../../components/presentations/PopUp";
+
+import {PopUp} from "../../components";
 
 
 class Profile extends Component<{}, { userData: any }> {

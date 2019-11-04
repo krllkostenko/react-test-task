@@ -1,9 +1,7 @@
-
 import {LOGIN, LOGOUT} from "../types";
 
-export const login = (user:object) => ({
+export const login = () => ({
     type: LOGIN,
-    payload: user,
 });
 
 export const logout = () => ({

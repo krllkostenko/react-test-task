@@ -2,26 +2,33 @@ import React from 'react';
 import {Route, Redirect, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-interface properties{
-    component:React.ComponentClass<any>,
+
+import store from '../state-management';
+
+interface properties {
+    component: React.ComponentClass<any>,
     redirect: any,
-    auth:any
+    auth: any,
+    isLoggedIn: boolean,
 }
 
-const PrivateRoute = ({component:Component, redirect}:properties) => (
-    <Route render={props => (
-        redirect.isLoggedIn ? (
-            <Component {...props} />
-        ) : (
-            <Redirect
-                to={{
-                    pathname: redirect,
-                    state: {from: props.location}
-                }}
-            />
-        ))
-    }/>
-);
+const PrivateRoute = ({component: Component, ...rest}: properties) => {
+    const isLoggedIn = store.getState().auth.isLoggedIn;
+    return (
+        <Route render={props => (
+            isLoggedIn ? (
+                <Component {...props} />
+            ) : (
+                <Redirect
+                    to={{
+                        pathname: rest.redirect,
+                        state: {from: props.location}
+                    }}
+                />
+            ))
+        }/>
+    );
+};
 
 
 PrivateRoute.propTypes = {
