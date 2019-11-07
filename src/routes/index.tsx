@@ -12,6 +12,7 @@ export default () => (
             <Switch>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/signup" component={SignUp}/>
+                //@ts-ignore
                 <PrivateRouter path="/" component={Profile} redirect="/login"/>
             </Switch>
         </App>

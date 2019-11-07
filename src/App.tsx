@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Props } from 'react';
 import {Header} from './components';
 import './App.css';
 
 
-const App = (props) => {
+
+const App = (props:Props<any>) => {
     return (
         <div className="App">
-            <Header/>
+            <Header />
             <div className="content">
                 {props.children}
             </div>

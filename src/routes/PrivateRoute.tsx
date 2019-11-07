@@ -10,9 +10,10 @@ interface properties {
     redirect: any,
     auth: any,
     isLoggedIn: boolean,
+    path:any,
 }
 
-const PrivateRoute = ({component: Component, ...rest}: properties) => {
+const PrivateRouter = ({component: Component, ...rest}: properties) => {
     const isLoggedIn = store.getState().auth.isLoggedIn;
     return (
         <Route render={props => (
@@ -31,7 +32,7 @@ const PrivateRoute = ({component: Component, ...rest}: properties) => {
 };
 
 
-PrivateRoute.propTypes = {
+PrivateRouter.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired
 };
 
@@ -40,4 +41,4 @@ const mapStateToProps = (state: properties) => ({
 });
 
 
-export default withRouter(connect(mapStateToProps)<any>(PrivateRoute));
+export default withRouter(connect(mapStateToProps)<any>(PrivateRouter));

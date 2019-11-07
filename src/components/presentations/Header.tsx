@@ -1,8 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {AppBar, Button, createStyles, IconButton, makeStyles, Toolbar, Typography} from "@material-ui/core";
-import PropTypes from "prop-types";
 import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
 
 import {logout} from "../../state-management/actions";
 import store from '../../state-management';
@@ -21,8 +21,20 @@ const useStyles = makeStyles(theme =>
     })
 );
 
-const Header = (props) => {
+interface headerProps{
+    dispatch: Dispatch,
+    auth?:any,
+    isLoggedIn?:Boolean,
+};
+
+const Header = (props:headerProps) => {
     const classes = useStyles();
+    const logoutHandler = () => {
+        props.dispatch(logout());
+        let location = window.location.href;
+        location = location.slice(0, location.indexOf("/profile"));
+        window.location.href = `${location}/login`;
+    };
     const isLoggedIn = () => {
         if (!store.getState().auth.isLoggedIn) {
             return (
@@ -39,13 +51,7 @@ const Header = (props) => {
             return (
                 <Button
                     color="inherit"
-                    onClick={() => {
-                        props.dispatch(logout());
-                        let location = window.location.href;
-                        location = location.slice(0, location.indexOf("/profile"));
-                        window.location.href = `${location}/login`;
-                    }}
-                >
+                    onClick={logoutHandler}>
                     Logout
                 </Button>
             );
@@ -70,11 +76,7 @@ const Header = (props) => {
     );
 };
 
-Header.propTypes = {
-    isLoggedIn: PropTypes.bool.isRequired
-};
-
-const mapStateToProps = (state: properties) => ({
+const mapStateToProps = (state: headerProps) => ({
     isLoggedIn: state.auth.isLoggedIn,
 });
 
