@@ -33,10 +33,11 @@ interface properties {
   dispatch: Dispatch;
 }
 
-class Login extends Component<properties, { email: string; password: string }> {
+class Login extends Component<properties, { name:string,email: string; password: string }> {
   constructor(props: any) {
     super(props);
     this.state = {
+      name:"",
       email: "",
       password: ""
     };
