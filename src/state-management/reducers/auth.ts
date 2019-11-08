@@ -6,7 +6,7 @@ interface state {
 }
 
 const initialState: state = {
-    isLoggedIn: false,
+    isLoggedIn:false,
 };
 
 const handleLogin = (): state => ({

@@ -8,7 +8,7 @@ class Profile extends Component<{}, { userData: any }> {
     constructor(props: any) {
         super(props);
         this.state = {
-            userData: {},
+            userData: JSON.parse(localStorage.getItem('userData') || '{}'),
         };
     }
 

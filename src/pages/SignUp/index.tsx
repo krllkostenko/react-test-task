@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import {Card, CardContent, Theme} from "@material-ui/core";
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
 
 import ErrorMessagePopUp from "../../components/containers/ErrorMessagePopUp";
 import {login} from "../../state-management/actions";
@@ -27,7 +28,14 @@ const useStyles = (theme: Theme): object => ({
 });
 
 
-class SignIn extends Component<{ classes: any }, { name: string, email: string, password: string }> {
+interface properties{
+    classes:any,
+    history:any,
+    dispatch:Dispatch,
+}
+
+
+class SignUp extends Component<properties, { name: string, email: string, password: string }> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -35,7 +43,6 @@ class SignIn extends Component<{ classes: any }, { name: string, email: string, 
             email: '',
             password: '',
         };
-
     }
 
     private handleChange = (name: string) => (event: {}) => {
@@ -54,6 +61,7 @@ class SignIn extends Component<{ classes: any }, { name: string, email: string, 
             this.logInHandler();
         } else {
             const errorMessage = document.querySelector('.error-message') as HTMLInputElement;
+            console.log(errorMessage);
             errorMessage.setAttribute('style', 'display:block');
             setTimeout(() => {
                 errorMessage.setAttribute('style', 'display:none');
@@ -124,4 +132,4 @@ const mapStateToProps = (state: state) => {
     }
 };
 
-export default withStyles(useStyles)(connect(mapStateToProps)(SignIn));
+export default withStyles(useStyles)(connect(mapStateToProps)(SignUp));

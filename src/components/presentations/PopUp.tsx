@@ -23,7 +23,7 @@ const PopUp = (props: popUpProps) => {
 
     return (
         <div>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button data-popup-handler variant="outlined" color="primary" onClick={handleClickOpen}>
                 Show More Info
             </Button>
             <Dialog
@@ -40,7 +40,7 @@ const PopUp = (props: popUpProps) => {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary" autoFocus>
+                    <Button data-popup-handler onClick={handleClose} color="primary" autoFocus>
                         Close
                     </Button>
                 </DialogActions>
