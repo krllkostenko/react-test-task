@@ -1,7 +1,17 @@
 import React, {Component} from 'react';
 import {ErrorMessage} from "../../components";
 
-class ErrorMessagePopUp extends Component<{error:any},{ errorMessage: Function }> {
+interface userDataType{
+    name:string,
+    email:string,
+    password:string,
+}
+interface errorType{
+    type:string,
+    data:userDataType,
+}
+
+class ErrorMessagePopUp extends Component<{error:errorType},{ errorMessage: Function }> {
     showErrorMessage = () => {
         if (this.props.error.type === 'SignUp') {
             return this.handleSignUpErrors();
@@ -35,6 +45,7 @@ class ErrorMessagePopUp extends Component<{error:any},{ errorMessage: Function }
     };
 
     render() {
+        console.log(this.props);
         return (
             <ErrorMessage errorMessage={this.showErrorMessage}/>
         );
