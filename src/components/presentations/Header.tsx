@@ -2,10 +2,9 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {AppBar, Button, createStyles, IconButton, makeStyles, Toolbar, Typography} from "@material-ui/core";
 import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
+import {Action} from 'redux';
 
-import {logout} from "../../state-management/actions";
-import store from '../../state-management';
+import { actions } from '../../state-management';
 
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -21,41 +20,28 @@ const useStyles = makeStyles(theme =>
     })
 );
 
-interface headerProps{
-    dispatch: Dispatch,
-    auth?:any,
-    isLoggedIn?:Boolean,
+interface headerProps {
+    isLoggedIn?: boolean,
+    logout: Action<>
 };
 
-const Header = (props:headerProps) => {
+const Header = (props: headerProps) => {
     const classes = useStyles();
-    const logoutHandler = () => {
-        props.dispatch(logout());
-        let location = window.location.href;
-        location = location.slice(0, location.indexOf("/profile"));
-        window.location.href = `${location}/login`;
-    };
-    const isLoggedIn = () => {
-        if (!store.getState().auth.isLoggedIn) {
-            return (
-                <div>
-                    <Link to={"/signup"}>
-                        <Button color="inherit">Sign Up</Button>
-                    </Link>
-                    <Link to={"/login"}>
-                        <Button color="inherit">Login</Button>
-                    </Link>
-                </div>
-            );
-        } else {
-            return (
-                <Button
-                    color="inherit"
-                    onClick={logoutHandler}>
-                    Logout
-                </Button>
-            );
+    
+    const loginButtons = [
+        {
+            link: "/signup",
+            name: "Sign Up"
+        },
+        {
+            link: "/login",
+            name: "Login"
         }
+    ]
+    
+    const logoutHandler = () => {
+        props.logout();
+        props.history.replace('/');
     };
 
     return (
@@ -70,7 +56,24 @@ const Header = (props:headerProps) => {
                 <Typography variant="h6" className={classes.title}>
                     <Link to={"/"}>Test Task</Link>
                 </Typography>
-                {isLoggedIn()}
+                {
+                    isLoggedIn ? (
+                        <div>
+                            loginButtons.map(button => (
+                                <Link to={button.link}>
+                                    <Button color="inherit">{button.name}</Button>
+                                </Link>
+                            ))
+                        </div>
+                    ) : (
+                        <Button
+                            color="inherit"
+                            onClick={logoutHandler}
+                        >
+                            Logout
+                        </Button>
+                    )
+                }
             </Toolbar>
         </AppBar>
     );
@@ -81,4 +84,4 @@ const mapStateToProps = (state: headerProps) => ({
 });
 
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { logout: actions.logout })(Header);
